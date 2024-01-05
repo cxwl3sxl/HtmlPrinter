@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HtmlPrinter": {
+      "commandName": "Project",
+      "commandLineArgs": "-mt 0.2 -mb 0.2 -cm color -url \"http://localhost:8602/api/Office/Text?template=PatientCaseText&pid=e8da7694-8511-4c29-8d33-c98e704e4445&a-token=yyqRbp53hFvDJA8ZbHcAezr9PmT6TT0ivFzDe8hD%2b%2fhpPHPvj7IVfIw2fJU1OponArDcwY3qPxQNMNr%2bWS5IgCl43y0umzeRipV%2fMQBH61c2g2tzmvncAuI1TZxOdJytT8sEYudkNStQc1wlSVJu99smx8y%2fTnR3IznR1JNOMQEayUl8VsG7o9M%2bXmYfJT0M3ajBarFqFis%3d\""
+    }
+  }
+}
