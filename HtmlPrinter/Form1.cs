@@ -73,7 +73,7 @@ namespace HtmlPrinter
             }
             catch (Exception ex)
             {
-                TraceLog(ex.Message);
+                TraceLog($"下载页面出错 {ex.Message}");
                 Environment.Exit(3);
             }
         }
@@ -157,11 +157,12 @@ namespace HtmlPrinter
                     await webView21.CoreWebView2.PrintAsync(ps);
                 }
 
+                TraceLog("打印完成");
                 Environment.Exit(0);
             }
             catch (Exception ex)
             {
-                TraceLog(ex.Message);
+                TraceLog($"打印出错 {ex.Message}");
                 Environment.Exit(3);
             }
         }
