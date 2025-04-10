@@ -10,9 +10,7 @@ internal class InputArgument : ConsoleArgument
             "  0: 程序正常完成",
             "  1: 部分参数非法",
             "  2: 参数-url不能为空",
-            "  3: 程序出错",
-            "支持的特殊命令：",
-            "  /clean: 清理临时目录"
+            "  3: 程序出错"
         };
     }
 
