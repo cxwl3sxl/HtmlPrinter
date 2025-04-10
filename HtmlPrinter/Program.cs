@@ -34,6 +34,13 @@ namespace HtmlPrinter
                     return;
                 }
 
+                if (!File.Exists(ia.ChromePath ?? string.Empty))
+                {
+                    Console.WriteLine("-chrome-path 不能为空或指定的文件不存在");
+                    Environment.Exit(1);
+                    return;
+                }
+
                 var pdf = await CreatePdf(ia);
                 if (!File.Exists(pdf))
                 {
@@ -70,8 +77,14 @@ namespace HtmlPrinter
             var options = new LaunchOptions
             {
                 Headless = true, // 无界面模式
-                ExecutablePath =
-                    "/opt/apps/cn.google.chrome-pre/files/google/chrome/google-chrome" // Linux/macOS 需指定Chromium路径
+                ExecutablePath = ia.ChromePath,
+                Args = new[]
+                {
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage" // 防止共享内存不足问题
+                }
+                //"/opt/apps/cn.google.chrome-pre/files/google/chrome/google-chrome" // Linux/macOS 需指定Chromium路径
                 //ExecutablePath =
                 //    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" // Linux/macOS 需指定Chromium路径
             };

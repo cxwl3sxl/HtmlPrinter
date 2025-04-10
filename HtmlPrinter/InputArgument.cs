@@ -60,4 +60,7 @@ internal class InputArgument : ConsoleArgument
 
     [ConsoleArgument("-scale", Help = "缩放，0.1~2.0，默认1")]
     public double Scale { get; set; } = 1;
+
+    [ConsoleArgument("-chrome-path", Help = "chrome浏览器文件位置")]
+    public string? ChromePath { get; set; }
 }
