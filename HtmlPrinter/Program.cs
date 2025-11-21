@@ -1,4 +1,4 @@
-﻿using PuppeteerSharp;
+using PuppeteerSharp;
 using PuppeteerSharp.Media;
 using System.Runtime.InteropServices;
 
@@ -7,6 +7,8 @@ namespace HtmlPrinter
     internal class Program
     {
         private static readonly AutoResetEvent EventLoop = new(false);
+
+        #region main
 
         static void Main()
         {
@@ -19,9 +21,17 @@ namespace HtmlPrinter
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(ia.ChromePath) && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                //如果没有传递chrome程序位置且是windows平台，那么自动寻找
+                ia.ChromePath = ChromeEdgeHelper.FindChromeOrEdge();
+            }
+
             Process(ia);
             EventLoop.WaitOne();
         }
+
+        #endregion
 
         static async void Process(InputArgument ia)
         {
@@ -78,12 +88,12 @@ namespace HtmlPrinter
             {
                 Headless = true, // 无界面模式
                 ExecutablePath = ia.ChromePath,
-                Args = new[]
-                {
+                Args =
+                [
                     "--no-sandbox",
                     "--disable-setuid-sandbox",
                     "--disable-dev-shm-usage" // 防止共享内存不足问题
-                }
+                ]
                 //"/opt/apps/cn.google.chrome-pre/files/google/chrome/google-chrome" // Linux/macOS 需指定Chromium路径
                 //ExecutablePath =
                 //    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" // Linux/macOS 需指定Chromium路径
@@ -94,7 +104,10 @@ namespace HtmlPrinter
             await using var page = await browser.NewPageAsync();
 
             // 加载HTML内容（直接生成含链接的HTML或其他来源）
-            await page.GoToAsync(ia.Url); // 示例：传入网页链接
+            await page.GoToAsync(ia.Url, new NavigationOptions()
+            {
+                ReferrerPolicy = "no-referrer"
+            }); // 示例：传入网页链接
             // 或直接设置HTML内容： await page.SetContentAsync("<a href='https://example.com'>Example Link</a>");
 
             var pdf = ia.Pdf;

@@ -1,17 +1,17 @@
-﻿namespace HtmlPrinter;
+namespace HtmlPrinter;
 
 internal class InputArgument : ConsoleArgument
 {
     protected override string[] Usage()
     {
-        return new[]
-        {
+        return
+        [
             "返回值注释清单：",
             "  0: 程序正常完成",
             "  1: 部分参数非法",
             "  2: 参数-url不能为空",
             "  3: 程序出错"
-        };
+        ];
     }
 
     [ConsoleArgument("-mt", Help = "顶部边距，单位英寸")]

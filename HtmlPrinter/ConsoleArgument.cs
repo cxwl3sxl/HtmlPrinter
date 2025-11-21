@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -29,7 +29,7 @@ public abstract class ConsoleArgument
 
     protected virtual string[] Usage()
     {
-        return Array.Empty<string>();
+        return [];
     }
 
     /// <summary>
@@ -44,9 +44,8 @@ public abstract class ConsoleArgument
         {
             var key = args[i].ToLower();
             var value = GetNextItem(args, i);
-            if (!_argsDictionary.ContainsKey(key)) continue;
+            if (!_argsDictionary.TryGetValue(key, out var propInfo)) continue;
 
-            var propInfo = _argsDictionary[key];
             if (!string.IsNullOrWhiteSpace(propInfo.Meta.ValidateExpress))
             {
                 var regex = new Regex(propInfo.Meta.ValidateExpress);
